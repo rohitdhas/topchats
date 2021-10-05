@@ -8,14 +8,20 @@ module.exports = (server) => {
     io.on('connection', (socket) => {
         // Messages
 
-        socket.on('message', (message, username, room) => {
-            socket.to(room).emit('recieve_message', `${username} - ${message}`)
+        socket.on('message', (messageData) => {
+            socket.to(messageData.room).emit('recieve_message', messageData)
         })
 
-        // Rooms
-        socket.on('join-room', (room, cb) => {
+        // Join Room
+        socket.on('join-room', (room) => {
             socket.join(room);
-            cb(`${room} Joined!`)
+        })
+
+        socket.on('leave-all', () => {
+            let connectedRooms = Array.from(socket.rooms).slice(1)
+            connectedRooms.forEach(room => {
+                socket.leave(room);
+            })
         })
     })
 }

@@ -19,7 +19,6 @@ const localLogin = (req, res, next) => {
 
 const logout = (req, res) => {
     req.logOut();
-    delete req.user
     res.json({ message: "Logged Out!", success: true });
 }
 

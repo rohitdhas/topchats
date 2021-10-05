@@ -90,3 +90,16 @@ export function getAndSetUserData(dispatcher) {
             }
         })
 }
+
+export function logout() {
+    fetch('http://localhost:4000/logout', {
+        method: 'DELETE',
+        credentials: 'include'
+    })
+        .then(res => res.json())
+        .then(({ success }) => {
+            if (success) {
+                window.location = '/';
+            }
+        })
+}

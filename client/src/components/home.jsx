@@ -1,23 +1,27 @@
-import { useEffect } from "react";
-import { getAndSetUserData } from "../helpers/userAuth";
-import { useSelector, useDispatch } from "react-redux";
+import { Page } from "../styles/homeStyles";
 
 export default function Home() {
-  const dispatch = useDispatch();
-  const { username } = useSelector((state) => state.userProfile);
-
-  useEffect(() => {
-    getAndSetUserData(dispatch);
-  }, []);
   return (
-    <div>
-      {!username ? (
-        <h1>
-          <a href="/login">Click here</a> to Login in!
-        </h1>
-      ) : (
-        <h1>Hello {username}!</h1>
-      )}
-    </div>
+    <Page>
+      <section>
+        <i className="far fa-paper-plane"></i>
+        <p>Join a Room and start Chatting!</p>
+      </section>
+      <div className="cards">
+        <p>Join Existing Rooms</p>
+        <div className="room_card">
+          <i className="fas fa-users"></i>
+          <div className="room_title">Rockers</div>
+        </div>
+        <div className="room_card">
+          <i className="fas fa-users"></i>
+          <div className="room_title">Full Stack Devs</div>
+        </div>
+        <div className="room_card">
+          <i className="fas fa-plus"></i>
+          <div className="room_title">Create your Own</div>
+        </div>
+      </div>
+    </Page>
   );
 }

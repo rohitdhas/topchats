@@ -52,6 +52,7 @@ function Works() {
 
 const Box = styled.div`
   height: 100vh;
+  margin-left: 300px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -108,6 +109,7 @@ function displayMessage(message, sender) {
 function joinRoom(e, room, socket) {
   e.preventDefault();
   const id = room.current.value;
+  socket.emit('leave-all')
   socket.emit("join-room", id, (message) => {
     displayMessage(message);
   });

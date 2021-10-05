@@ -9,10 +9,9 @@ const User = new mongoose.Schema({
         type: String,
         required: true
     },
-    rooms: {
-        type: Array,
-        required: true,
-        default: []
+    profileImage: {
+        type: String,
+        default: 'https://www.kindpng.com/picc/m/495-4952535_create-digital-profile-icon-blue-user-profile-icon.png'
     }
 })
 
