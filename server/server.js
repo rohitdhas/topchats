@@ -15,13 +15,6 @@ mongoose.connect(process.env.DB_URI, {
 })
     .then(() => {
         console.log("Mongoose Connected!✅")
-        let server = app.listen(4000, (err) => {
-            if (err) console.log(err)
-            else console.log("Server is running on port 4000!");
-        })
-
-        // Socket Connection
-        require('./controller/socket_controller')(server)
     })
     .catch((err) => console.log(err))
 
@@ -47,8 +40,21 @@ require("./passportJS_strategies/localAuth-config")(passport);
 
 const userAuthRoutes = require('./Routes/userAuthRoutes');
 const messageRoutes = require('./Routes/messageRoutes');
+const roomRoutes = require('./Routes/roomRoutes');
 
 app.use(userAuthRoutes);
 app.use(messageRoutes);
+app.use('/room', roomRoutes);
 
 // __________________________________________________
+
+const server = app.listen(4000, (err) => {
+    if (err) console.log(err)
+    else {
+        // Socket Connection
+        require('./controller/socket_controller')
+        console.log("Server is running on port 4000!")
+    }
+})
+
+module.exports = { server };
