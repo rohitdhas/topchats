@@ -1,8 +1,8 @@
 import "./styles/App.css";
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import Login from './components/login'
-import Register from "./components/register";
-import Home from "./components/home";
+import Login from './Pages/login'
+import Register from "./Pages/register";
+import Home from './Pages/home';
 import Sidebar from "./components/sidebar";
 import Works from "./components/working_chat_app";
 import Room from "./components/room";

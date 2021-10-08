@@ -2,8 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
     username: "",
-    profileImage: "",
-    rooms: []
+    userId: ""
 }
 
 export const profileSlice = createSlice({
@@ -11,10 +10,9 @@ export const profileSlice = createSlice({
     initialState,
     reducers: {
         setProfileData: (state, action) => {
-            const { username, profileImage, rooms } = action.payload;
+            const { username, id } = action.payload;
             state.username = username
-            state.profileImage = profileImage
-            state.rooms = rooms
+            state.userId = id
         }
     },
 })

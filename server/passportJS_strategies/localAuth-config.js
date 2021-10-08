@@ -27,8 +27,8 @@ module.exports = (passport) => {
   passport.deserializeUser((id, done) => {
     try {
       User.findById(id, (err, user) => {
-        const { username, rooms } = user;
-        done(err, { username, rooms });
+        const { username, _id } = user;
+        done(err, { username, id: _id });
       })
     } catch (err) {
       console.log(err.message)

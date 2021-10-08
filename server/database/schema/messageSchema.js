@@ -3,23 +3,20 @@ const Schema = mongoose.Schema;
 
 const Message = new Schema({
     sender: {
-        type: String,
-        required: true,
-        ref: 'User'
+        type: Object,
+        required: true
     },
     message: {
         type: String,
         required: true
     },
-    datetime: {
-        type: String,
-        default: new Date().toLocaleString()
+    time: {
+        type: String
     },
-    room: {
+    refID: {
         type: String,
         required: true
-    },
-    seenBy: [{ type: String, required: true, ref: 'User' }]
+    }
 })
 
 module.exports = mongoose.model('Message', Message);

@@ -8,7 +8,7 @@ export default function Home() {
         <p>Join a Room and start Chatting!</p>
       </section>
       <div className="cards">
-        <p>Join Existing Rooms</p>
+        <p>Featured Rooms</p>
         <div className="room_card">
           <i className="fas fa-users"></i>
           <div className="room_title">Rockers</div>

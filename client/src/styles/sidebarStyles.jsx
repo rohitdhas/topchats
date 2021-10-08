@@ -12,7 +12,7 @@ export const Bar = styled.div`
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    margin: 10px 0 0;
+    margin: 30px 0 0;
     padding: 20px 10px;
     font-size: 1.4rem;
     font-weight: bold;
@@ -37,14 +37,19 @@ export const Bar = styled.div`
     }
   }
 
+  a {
+    text-decoration: none;
+    color: #22324b;
+  }
+
   .room_list {
-    border-top: 2px solid #dce1eb;
     margin: 30px 0 0;
     color: #22324b;
     padding: 10px 0;
 
-    h3 {
-      margin: 10px 0;
+    h4 {
+      border-top: 2px solid #dce1eb;
+      padding-top: 15px;
     }
 
     .room_card {
@@ -100,10 +105,14 @@ export const Bar = styled.div`
 `;
 
 export const SliderBox = styled.div`
+  display: flex;
+  align-items: center;
+
   .label_text {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     font-weight: 500;
     margin: 0 5px;
+    color: #253558;
   }
 
   /* The switch - the box around the slider */
@@ -111,8 +120,8 @@ export const SliderBox = styled.div`
     margin: 10px 0;
     position: relative;
     display: inline-block;
-    width: 60px;
-    height: 30px;
+    width: 40px;
+    height: 20px;
   }
 
   /* Hide default HTML checkbox */
@@ -138,10 +147,10 @@ export const SliderBox = styled.div`
   .slider:before {
     position: absolute;
     content: "";
-    height: 22px;
-    width: 22px;
+    height: 13px;
+    width: 13px;
     left: 4px;
-    bottom: 4px;
+    bottom: 3.5px;
     background-color: white;
     -webkit-transition: 0.4s;
     transition: 0.4s;
@@ -156,9 +165,9 @@ export const SliderBox = styled.div`
   }
 
   input:checked + .slider:before {
-    -webkit-transform: translateX(30px);
-    -ms-transform: translateX(30px);
-    transform: translateX(30px);
+    -webkit-transform: translateX(20px);
+    -ms-transform: translateX(20px);
+    transform: translateX(20px);
   }
 
   /* Rounded sliders */

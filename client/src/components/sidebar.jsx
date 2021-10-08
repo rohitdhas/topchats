@@ -3,6 +3,8 @@ import { useLocation } from "react-router";
 import { Bar, SliderBox } from "../styles/sidebarStyles";
 import { getAndSetUserData, logout } from "../helpers/userAuth";
 import { useEffect } from "react";
+import { toggleCardItem } from "../helpers/sidebarHandler";
+import { Link } from "react-router-dom";
 
 export default function Sidebar() {
   const dispatch = useDispatch();
@@ -25,53 +27,50 @@ export default function Sidebar() {
             <button onClick={() => (window.location = "/login")}>Log In</button>
           </div>
         ) : (
-          <div className="sidebar_user_section">
-            <span>Hey {username}!</span>
-            <Slider />
-            <button onClick={logout}>Sign Out</button>
-          </div>
+          <>
+            <div className="sidebar_user_section">
+              <span>Hey {username}!</span>
+              <Slider />
+              <button onClick={logout}>Sign Out</button>
+            </div>
+            {/* _________________________________________ */}
+            <div className="room_list">
+              <h4>Your Rooms</h4>
+              <div className="room_card">
+                <div className="icon plus">
+                  <i className="fas fa-plus"></i>
+                </div>
+                <div className="room_title">Create New</div>
+              </div>
+              {/* __________________________________________ */}
+              <h4>Previously Joined Rooms</h4>
+              <Link to="/room/programmers">
+                <div className="room_card">
+                  <div className="icon">
+                    <i className="fas fa-users"></i>
+                  </div>
+                  <div className="room_title">Programmers</div>
+                </div>
+              </Link>
+              <Link to="/room/Full Stack Devs">
+                <div className="room_card">
+                  <div className="icon">
+                    <i className="fas fa-users"></i>
+                  </div>
+                  <div className="room_title">Full Stack Devs</div>
+                </div>
+              </Link>
+              <Link to="/room/rockers">
+                <div className="room_card">
+                  <div className="icon">
+                    <i className="fas fa-users"></i>
+                  </div>
+                  <div className="room_title">Rockers</div>
+                </div>
+              </Link>
+            </div>
+          </>
         )}
-        <div className="room_list">
-          <h3>Your Rooms</h3>
-          <div className="room_card active">
-            <div className="icon">
-              <i className="fas fa-users"></i>
-            </div>
-            <div
-              onClick={() => (window.location = `/room/programmers`)}
-              className="room_title"
-            >
-              Programmers
-            </div>
-            <div className="unseen_message_count">42</div>
-          </div>
-          <div
-            onClick={() => (window.location = `/room/Full Stack Devs`)}
-            className="room_card"
-          >
-            <div className="icon">
-              <i className="fas fa-users"></i>
-            </div>
-            <div className="room_title">Full Stack Devs</div>
-            <div className="unseen_message_count">12</div>
-          </div>
-          <div
-            onClick={() => (window.location = `/room/rockers`)}
-            className="room_card"
-          >
-            <div className="icon">
-              <i className="fas fa-users"></i>
-            </div>
-            <div className="room_title">Rockers</div>
-            <div className="unseen_message_count">42</div>
-          </div>
-          <div className="room_card">
-            <div className="icon plus">
-              <i className="fas fa-plus"></i>
-            </div>
-            <div className="room_title">Create New</div>
-          </div>
-        </div>
       </Bar>
     );
 }

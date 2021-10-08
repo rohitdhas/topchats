@@ -13,11 +13,10 @@ export const LoginForm = styled.div`
   }
 
   form {
-    width: 350px;
-    border: 1px solid lightgray;
+    width: 380px;
     border-radius: 7px;
     padding: 20px 30px;
-    box-shadow: 12px 15px 12px -20px black;
+    border: 1px solid #b6ccee;
 
     .err_msg {
       font-weight: 600;

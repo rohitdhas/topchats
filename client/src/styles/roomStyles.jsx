@@ -14,6 +14,28 @@ export const MsgBox = styled.div`
     .msg_card {
       margin: 10px 0;
       width: fit-content;
+      position: relative;
+
+      .delete_icon {
+        display: none;
+        background-color: tomato;
+        position: absolute;
+        top: 2px;
+        transform: translateX(-90px);
+        font-size: 0.8rem;
+        padding: 8px;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 80px;
+
+        &:hover {
+          background-color: #f5492a;
+        }
+
+        &.active {
+          display: block;
+        }
+      }
 
       .time {
         margin: 8px 0;
@@ -21,25 +43,28 @@ export const MsgBox = styled.div`
         text-align: end;
         font-size: 0.5rem;
       }
+      .msg_text {
+        font-size: 0.8rem;
+        border-radius: 5px;
+        padding: 10px;
+      }
 
-      &.me {
+      &.sent {
         .msg_text {
-          font-size: 0.8rem;
           background-color: #3a86ff;
-          border-radius: 5px;
-          padding: 10px;
+          &:hover {
+            background-color: #105bd4;
+            cursor: pointer;
+          }
         }
         margin-left: auto;
         margin-right: 0;
         color: white;
       }
 
-      &.sender {
+      &.recieved {
         .msg_text {
-          font-size: 0.8rem;
           background-color: white;
-          border-radius: 5px;
-          padding: 10px;
 
           .sent_by {
             font-weight: bold;
@@ -49,6 +74,18 @@ export const MsgBox = styled.div`
         .time {
           text-align: start;
         }
+      }
+
+      &.bot {
+        .msg_text {
+          background-color: tomato;
+          color: white;
+
+          .sent_by {
+            font-weight: bold;
+          }
+        }
+        margin: 0 auto;
       }
     }
   }

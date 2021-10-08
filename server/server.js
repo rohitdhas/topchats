@@ -15,17 +15,18 @@ mongoose.connect(process.env.DB_URI, {
 })
     .then(() => {
         console.log("Mongoose Connected!✅")
-        const server = app.listen(4000, (err) => {
+        let server = app.listen(4000, (err) => {
             if (err) console.log(err)
             else console.log("Server is running on port 4000!");
         })
 
         // Socket Connection
-        require('./socket/socket_connection')(server)
+        require('./controller/socket_controller')(server)
     })
-    .catch(() => console.log("Its error from DB!"))
+    .catch((err) => console.log(err))
 
 // _________________________ MIDDLEWERES _________________________
+
 app.use(express.json());
 app.use(cors({ origin: "http://localhost:3000", credentials: true }))
 
@@ -45,7 +46,9 @@ require("./passportJS_strategies/localAuth-config")(passport);
 // _________________________ ROUTES _________________________
 
 const userAuthRoutes = require('./Routes/userAuthRoutes');
+const messageRoutes = require('./Routes/messageRoutes');
 
 app.use(userAuthRoutes);
+app.use(messageRoutes);
 
 // __________________________________________________
