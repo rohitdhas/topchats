@@ -13,29 +13,40 @@ io.on('connection', (socket) => {
     // Messages
 
     socket.on('message', async (messageData) => {
-        const { room, sender, time, message, refID } = messageData;
-        socket.to(room).emit('recieve_message', messageData)
+        const { roomId, sender, time, message, refID } = messageData;
+        socket.to(roomId).emit('recieve_message', messageData)
 
         let newMsg = new Message({ sender, message, time, refID });
         let msgData = await newMsg.save()
+        try {
+            await Room.findByIdAndUpdate(roomId, { $push: { 'chats': msgData._id } })
+        } catch (err) {
+            return
+        }
 
-        await Room.findOneAndUpdate({ name: room }, { $push: { 'chats': msgData._id } });
     })
 
     // Join Room
-    socket.on('join-room', async (room, username) => {
-        let roomInDB = await Room.findOne({ name: room });
-        if (roomInDB === null) {
+    socket.on('join-room', async (roomId, username) => {
+        let roomInDB;
+        try {
+            roomInDB = await Room.findById(roomId);
+        } catch (err) {
+            socket.join(roomId);
+            io.to(roomId).emit("Bot", { message: `ERR - Room with id: ${roomId} doesn't exist!` })
+            socket.leave(roomId);
+        }
+
+        if (roomInDB === undefined) {
             return
         } else {
-            io.to(room).emit('Bot', { message: `${username} Joined!` })
-            socket.join(room);
+            socket.join(roomId);
 
             // Sending room data with last 100 chats back to room
-            Room.findOne({ name: room }).populate('chats').exec((err, roomData) => {
+            Room.findById(roomId).populate('chats').exec((err, roomData) => {
                 let last100Chats = roomData.chats.reverse().slice(0, 101).reverse();
                 roomData.chats = last100Chats;
-                io.to(room).emit('room_data', roomData);
+                io.to(roomId).emit('room_data', roomData);
             })
         }
     })

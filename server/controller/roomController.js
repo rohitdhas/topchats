@@ -34,4 +34,16 @@ const deleteRoom = async (req, res) => {
     }
 }
 
-module.exports = { createNewRoom, deleteRoom };
+const roomData = async (req, res) => {
+    const userId = req.user.id;
+
+    try {
+        let userRoomData = await Room.find({ $or: [{ 'admin': ObjectId(userId) }, { 'users': ObjectId(userId) }] })
+        res.status(201).json({ data: userRoomData })
+
+    } catch (err) {
+        res.status(500).json({ message: err.message })
+    }
+}
+
+module.exports = { createNewRoom, deleteRoom, roomData };

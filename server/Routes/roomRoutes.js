@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const { deleteRoom, createNewRoom } = require('../controller/roomController');
+const { deleteRoom, createNewRoom, roomData } = require('../controller/roomController');
 
 router.post('/', isAuthenticated, createNewRoom);
 router.delete('/', isAuthenticated, deleteRoom);
+router.get('/user-data', isAuthenticated, roomData)
 
 
 // __________________________ MIDDLEWERES __________________________
