@@ -4,19 +4,17 @@ const Room = require('../database/schema/roomSchema')
 const createNewRoom = async (req, res) => {
     const { name, admin } = req.body;
 
-    let roomInDB = await Room.find({ name });
+    let roomInDB = await Room.findOne({ name });
     if (roomInDB === null) {
-
         let newRoom = new Room({
             name,
-            admin: ObjectId(admin),
-            users: [ObjectId(admin)]
+            admin: ObjectId(admin)
         })
-        let roomData = newRoom.save();
+        let roomData = await newRoom.save();
 
         res.status(201).json({ message: "Room Created!", success: true, data: { name, id: roomData._id } })
     } else {
-        res.status(403).json({ message: `Room with name: ${name} already exist!`, success: false })
+        res.status(403).json({ message: `Room with name: ${name} already exist! Select another name.`, success: false })
     }
 }
 

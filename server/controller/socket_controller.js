@@ -37,7 +37,7 @@ io.on('connection', (socket) => {
             socket.leave(roomId);
         }
 
-        if (roomInDB === undefined) {
+        if (!roomInDB) {
             return
         } else {
             socket.join(roomId);
