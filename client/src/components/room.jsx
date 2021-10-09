@@ -63,12 +63,6 @@ export default function Room() {
     }
   }, [roomData]);
 
-  // useEffect(() => {
-  //   if (socket) {
-  //     socket.emit("leave-all");
-  //   }
-  // }, [location.pathname]);
-
   return (
     <>
       {!username ? (
@@ -76,7 +70,7 @@ export default function Room() {
       ) : (
         <>
           <RoomNav>
-            <div className="room_title">{params.roomID}</div>
+            <div className="room_title">{roomData && roomData.name}</div>
             <button onClick={() => leaveRoom(params.roomID, username, socket)}>
               Leave Room
             </button>
@@ -90,7 +84,7 @@ export default function Room() {
                   {
                     messageInput: userInput,
                     sender: { id: userId, username },
-                    room: params.roomID,
+                    roomId: params.roomID,
                   },
                   socket
                 )

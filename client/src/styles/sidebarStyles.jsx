@@ -6,6 +6,7 @@ export const Bar = styled.div`
   left: 30px;
   top: 0;
   bottom: 0;
+  overflow-y: auto;
 
   .sidebar_user_section {
     display: flex;

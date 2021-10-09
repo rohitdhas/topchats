@@ -3,14 +3,15 @@ import { useLocation } from "react-router";
 import { Bar, SliderBox } from "../styles/sidebarStyles";
 import { getAndSetUserData, logout } from "../helpers/userAuth";
 import { useEffect } from "react";
-import { toggleCardItem } from "../helpers/sidebarHandler";
 import { Link } from "react-router-dom";
+import { GetUserRooms } from "../helpers/sidebarHandler";
 
 export default function Sidebar() {
   const dispatch = useDispatch();
-  const { username } = useSelector((state) => state.userProfile);
+  const { username, userId } = useSelector((state) => state.userProfile);
   const location = useLocation();
   const unwantedPaths = ["/login", "/register"];
+  const { userRooms } = GetUserRooms();
 
   useEffect(() => {
     getAndSetUserData(dispatch);
@@ -42,32 +43,22 @@ export default function Sidebar() {
                 </div>
                 <div className="room_title">Create New</div>
               </div>
+              {!userRooms.length
+                ? null
+                : userRooms.map((room) => {
+                    if (room.admin === userId) {
+                      return <RoomCard roomData={room} />;
+                    }
+                  })}
               {/* __________________________________________ */}
               <h4>Previously Joined Rooms</h4>
-              <Link to="/room/programmers">
-                <div className="room_card">
-                  <div className="icon">
-                    <i className="fas fa-users"></i>
-                  </div>
-                  <div className="room_title">Programmers</div>
-                </div>
-              </Link>
-              <Link to="/room/Full Stack Devs">
-                <div className="room_card">
-                  <div className="icon">
-                    <i className="fas fa-users"></i>
-                  </div>
-                  <div className="room_title">Full Stack Devs</div>
-                </div>
-              </Link>
-              <Link to="/room/rockers">
-                <div className="room_card">
-                  <div className="icon">
-                    <i className="fas fa-users"></i>
-                  </div>
-                  <div className="room_title">Rockers</div>
-                </div>
-              </Link>
+              {!userRooms.length
+                ? null
+                : userRooms.map((room) => {
+                    if (room.users.includes(userId)) {
+                      return <RoomCard roomData={room} />;
+                    }
+                  })}
             </div>
           </>
         )}
@@ -84,5 +75,18 @@ function Slider() {
         <span className="slider round"></span>
       </label>
     </SliderBox>
+  );
+}
+
+function RoomCard({ roomData }) {
+  return (
+    <Link to={`/room/${roomData._id}`}>
+      <div className="room_card">
+        <div className="icon">
+          <i className="fas fa-users"></i>
+        </div>
+        <div className="room_title">{roomData.name}</div>
+      </div>
+    </Link>
   );
 }

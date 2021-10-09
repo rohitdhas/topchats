@@ -2,7 +2,7 @@ import { guidGenerator } from "./utilityFuncs";
 
 export function sendMessage(e, messageData, socket) {
     e.preventDefault();
-    const { messageInput, sender, room } = messageData;
+    const { messageInput, sender, roomId } = messageData;
     const message = messageInput.current.value;
     const refID = guidGenerator();
 
@@ -11,7 +11,7 @@ export function sendMessage(e, messageData, socket) {
         // Pretty Date
         let time = new Date().toLocaleTimeString(navigator.language, { hour: '2-digit', minute: '2-digit' })
         displayMessage({ message, time, refID }, 'sent');
-        socket.emit("message", { message, sender, time, refID, room });
+        socket.emit("message", { message, sender, time, refID, roomId });
         messageInput.current.value = "";
     }
 }
@@ -65,7 +65,9 @@ export function displayMessage(messageData, senderClass) {
         `
     }
 
-    msg_box.appendChild(card);
+    if (msg_box) {
+        msg_box.appendChild(card);
+    }
     scrollToBottom();
 }
 
@@ -76,7 +78,9 @@ export function leaveRoom(roomID, username, socket) {
 
 export function scrollToBottom() {
     const msg_container = document.getElementById("msg_container");
-    msg_container.scrollTo({ left: 0, top: msg_container.scrollHeight, behavior: "smooth" })
+    if (msg_container) {
+        msg_container.scrollTo({ left: 0, top: msg_container.scrollHeight, behavior: "smooth" })
+    }
 }
 
 export function deleteMessage(messageId) {
