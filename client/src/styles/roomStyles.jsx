@@ -160,6 +160,15 @@ export const RoomNav = styled.div`
 
   .room_title {
     font-weight: bold;
+
+    a {
+      text-decoration: none;
+      color: royalblue;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
 
   button {

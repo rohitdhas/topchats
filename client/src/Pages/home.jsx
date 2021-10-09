@@ -1,4 +1,5 @@
 import { Page } from "../styles/homeStyles";
+import { Link } from "react-router-dom";
 
 export default function Home() {
   return (
@@ -9,18 +10,24 @@ export default function Home() {
       </section>
       <div className="cards">
         <p>Featured Rooms</p>
-        <div className="room_card">
-          <i className="fas fa-users"></i>
-          <div className="room_title">Rockers</div>
-        </div>
-        <div className="room_card">
-          <i className="fas fa-users"></i>
-          <div className="room_title">Full Stack Devs</div>
-        </div>
-        <div className="room_card">
-          <i className="fas fa-plus"></i>
-          <div className="room_title">Create your Own</div>
-        </div>
+        <Link to={"/room/6161c32f0854e5b501af1cce"}>
+          <div className="room_card">
+            <i className="fas fa-users"></i>
+            <div className="room_title">Programmers</div>
+          </div>
+        </Link>
+        <Link to={"/room/6161d9865057229a316569a1"}>
+          <div className="room_card">
+            <i className="fas fa-users"></i>
+            <div className="room_title">Full Stack Devs</div>
+          </div>
+        </Link>
+        <Link to={"/create/room"}>
+          <div className="room_card">
+            <i className="fas fa-plus"></i>
+            <div className="room_title">Create your Own</div>
+          </div>
+        </Link>
       </div>
     </Page>
   );

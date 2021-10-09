@@ -24,14 +24,14 @@ export default function Sidebar() {
         {!username ? (
           <div className="sidebar_user_section">
             <span>Hey User!</span>
-            <Slider />
+            {/* <Slider /> */}
             <button onClick={() => (window.location = "/login")}>Log In</button>
           </div>
         ) : (
           <>
             <div className="sidebar_user_section">
               <span>Hey {username}!</span>
-              <Slider />
+              {/* <Slider /> */}
               <button onClick={logout}>Sign Out</button>
             </div>
             {/* _________________________________________ */}

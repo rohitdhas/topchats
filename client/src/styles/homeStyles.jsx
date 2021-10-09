@@ -34,6 +34,10 @@ export const Page = styled.div`
   }
 
   .cards {
+    a {
+      text-decoration: none;
+      color: black;
+    }
     p {
       font-size: 1;
       font-weight: bold;

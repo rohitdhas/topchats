@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import { displayMessage, leaveRoom } from "../helpers/socketHandler";
 import { toggleEmojiKeyboard } from "../helpers/emojiHandler";
 import Login from "../Pages/login";
+import { addToRoom } from "../helpers/roomHandler";
 
 export default function Room() {
   const userInput = useRef("");
@@ -18,7 +19,6 @@ export default function Room() {
 
   useEffect(() => {
     let socketConnection = io("http://localhost:4000");
-
     socketConnection.on("connect", () => {
       setSocket(socketConnection);
     });
@@ -29,6 +29,7 @@ export default function Room() {
 
     socketConnection.on("room_data", (roomData) => {
       setRoomData(roomData);
+      addToRoom(roomData.name, roomData.admin);
     });
 
     socketConnection.on("Bot", (msgData) => {
@@ -43,7 +44,7 @@ export default function Room() {
     const roomId = params.roomID;
     if (socket) {
       socket.emit("leave-all");
-      socket.emit("join-room", roomId, username);
+      socket.emit("join-room", roomId, userId);
     }
   }, [socket, location.pathname]);
 
@@ -70,7 +71,10 @@ export default function Room() {
       ) : (
         <>
           <RoomNav>
-            <div className="room_title">{roomData && roomData.name}</div>
+            <div className="room_title">
+              {roomData && roomData.name} -{" "}
+              <a href={`/dashboard/${roomData._id}`}>Dashboard</a>{" "}
+            </div>
             <button onClick={() => leaveRoom(params.roomID, username, socket)}>
               Leave Room
             </button>
