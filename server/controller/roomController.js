@@ -32,7 +32,7 @@ const deleteRoom = async (req, res) => {
     }
 }
 
-const roomData = async (req, res) => {
+const userRoomData = async (req, res) => {
     const userId = req.user.id;
 
     try {
@@ -44,4 +44,37 @@ const roomData = async (req, res) => {
     }
 }
 
-module.exports = { createNewRoom, deleteRoom, roomData };
+const roomData = (req, res) => {
+    const id = req.query.id;
+    try {
+        Room.findOne({ _id: id }).populate('admin').populate('users').exec((err, data) => {
+            // Removing Password fields from users and admin objects
+            let dataCopy;
+            if (data) {
+                dataCopy = JSON.parse(JSON.stringify(data))
+                delete dataCopy.admin.password;
+                dataCopy.users.forEach((user) => {
+                    delete user.password;
+                })
+            }
+
+            res.status(201).json({ data: dataCopy })
+        })
+
+    } catch (err) {
+        res.status(500).json({ message: err.message })
+    }
+}
+
+const addMeToRoom = async (req, res) => {
+    const { id } = req.user;
+    const roomName = req.query.roomName;
+    const adminId = req.query.admin;
+
+    if (adminId != id) {
+        Room.updateOne({ name: roomName }, { $addToSet: { users: ObjectId(id) } })
+    }
+    res.end();
+}
+
+module.exports = { createNewRoom, deleteRoom, userRoomData, roomData, addMeToRoom };

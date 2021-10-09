@@ -1,5 +1,6 @@
 const Message = require('../database/schema/messageSchema')
 const Room = require('../database/schema/roomSchema')
+const ObjectId = require('mongoose').Types.ObjectId;
 const { server } = require('../server');
 
 const io = require('socket.io')(server, {
@@ -27,7 +28,7 @@ io.on('connection', (socket) => {
     })
 
     // Join Room
-    socket.on('join-room', async (roomId, username) => {
+    socket.on('join-room', async (roomId, userId) => {
         let roomInDB;
         try {
             roomInDB = await Room.findById(roomId);
@@ -37,9 +38,8 @@ io.on('connection', (socket) => {
             socket.leave(roomId);
         }
 
-        if (!roomInDB) {
-            return
-        } else {
+        if (!roomInDB) return;
+        else {
             socket.join(roomId);
 
             // Sending room data with last 100 chats back to room
@@ -64,4 +64,3 @@ io.on('connection', (socket) => {
         })
     })
 })
-
