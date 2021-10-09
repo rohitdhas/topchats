@@ -8,6 +8,16 @@ export const Bar = styled.div`
   bottom: 0;
   overflow-y: auto;
 
+  &::-webkit-scrollbar {
+    width: 5px;
+    margin-left: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+    outline: 1px solid slategrey;
+  }
+
   .sidebar_user_section {
     display: flex;
     justify-content: center;

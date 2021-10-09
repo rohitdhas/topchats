@@ -37,12 +37,14 @@ export default function Sidebar() {
             {/* _________________________________________ */}
             <div className="room_list">
               <h4>Your Rooms</h4>
-              <div className="room_card">
-                <div className="icon plus">
-                  <i className="fas fa-plus"></i>
+              <Link to="/create/room">
+                <div className="room_card">
+                  <div className="icon plus">
+                    <i className="fas fa-plus"></i>
+                  </div>
+                  <div className="room_title">Create New</div>
                 </div>
-                <div className="room_title">Create New</div>
-              </div>
+              </Link>
               {!userRooms.length
                 ? null
                 : userRooms.map((room) => {
