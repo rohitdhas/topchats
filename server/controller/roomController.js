@@ -72,7 +72,7 @@ const addMeToRoom = async (req, res) => {
     const adminId = req.query.admin;
 
     if (adminId != id) {
-        Room.updateOne({ name: roomName }, { $addToSet: { users: ObjectId(id) } })
+        await Room.updateOne({ name: roomName }, { $addToSet: { users: ObjectId(id) } })
     }
     res.end();
 }
