@@ -13,10 +13,19 @@ export const LoginForm = styled.div`
   }
 
   form {
-    width: 380px;
+    max-width: 380px;
     border-radius: 7px;
     padding: 20px 30px;
     border: 1px solid #b6ccee;
+
+    .sidebar_bar {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      font-size: 2rem;
+      color: #1158ca;
+      display: none;
+    }
 
     .err_msg {
       font-weight: 600;
@@ -89,6 +98,12 @@ export const LoginForm = styled.div`
           text-decoration: underline;
         }
       }
+    }
+  }
+
+  @media (max-width: 1000px) {
+    form > .sidebar_bar {
+      display: block;
     }
   }
 `;

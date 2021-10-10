@@ -11,6 +11,15 @@ export const Page = styled.div`
   align-items: center;
   flex-direction: column;
 
+  .sidebar_bar {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 2rem;
+    color: #1158ca;
+    display: none;
+  }
+
   section {
     display: flex;
     justify-content: center;
@@ -42,6 +51,7 @@ export const Page = styled.div`
       font-size: 1;
       font-weight: bold;
       margin: 20px 0;
+      text-align: center;
     }
   }
 
@@ -71,6 +81,19 @@ export const Page = styled.div`
 
     &:hover {
       background-color: #9ac1fff8;
+    }
+  }
+
+  @media (max-width: 1000px) {
+    margin: 0 auto;
+    width: 100%;
+    height: 100vh;
+
+    section p {
+      font-size: 1rem;
+    }
+    .sidebar_bar {
+      display: block;
     }
   }
 `;

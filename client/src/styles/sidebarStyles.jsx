@@ -7,6 +7,7 @@ export const Bar = styled.div`
   top: 0;
   bottom: 0;
   overflow-y: auto;
+  background-color: white;
 
   &::-webkit-scrollbar {
     width: 5px;
@@ -18,12 +19,33 @@ export const Bar = styled.div`
     outline: 1px solid slategrey;
   }
 
+  .site_logo {
+    a {
+      text-decoration: none;
+      color: #3a86ff;
+    }
+    margin-top: 20px;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+
+    svg {
+      margin-right: 10px;
+    }
+
+    &:hover {
+      a {
+        color: #266ee2;
+      }
+    }
+  }
+
   .sidebar_user_section {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    margin: 30px 0 0;
+    margin-top: 15px;
     padding: 20px 10px;
     font-size: 1.4rem;
     font-weight: bold;
@@ -112,6 +134,22 @@ export const Bar = styled.div`
         background-color: #bdd6fff8;
       }
     }
+  }
+
+  @media (max-width: 1000px) {
+    width: 100%;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    padding: 20px;
+    transform: translateX(-1000px);
+    transition: all 0.4s;
+  }
+
+  &.active {
+    transform: translateX(0px);
   }
 `;
 

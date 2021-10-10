@@ -14,6 +14,7 @@ export const Dashboard = styled.div`
     align-items: center;
     border-bottom: 2px solid #5280c9f8;
     padding: 10px 0;
+
     div {
       display: flex;
       justify-content: center;
@@ -79,6 +80,28 @@ export const Dashboard = styled.div`
       &:hover {
         background-color: #4b70aaf8;
         cursor: pointer;
+      }
+    }
+  }
+
+  @media (max-width: 1000px) {
+    margin: 10px auto;
+    width: 95%;
+    height: 100vh;
+
+    .dashboard_nav {
+      div > .title,
+      button {
+        font-size: 0.8rem;
+      }
+
+      div {
+        width: 50%;
+        justify-content: space-between;
+      }
+
+      button {
+        padding: 8px;
       }
     }
   }

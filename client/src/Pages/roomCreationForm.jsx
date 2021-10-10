@@ -2,6 +2,7 @@ import { LoginForm } from "../styles/loginFormStyles";
 import { createRoom } from "../helpers/roomHandler";
 import { useSelector } from "react-redux";
 import { useRef } from "react";
+import { toggleSidebar } from "../helpers/sidebarHandler";
 
 export default function RoomCreationForm() {
   const userInput = useRef("");
@@ -15,6 +16,9 @@ export default function RoomCreationForm() {
           createRoom(e, userInput.current.value, userId, errResponse)
         }
       >
+        <div className="sidebar_bar" onClick={toggleSidebar}>
+          <i className="fab fa-facebook-messenger"></i>
+        </div>
         <div className="err_msg" ref={errResponse}></div>
         <div>
           <label>Room Name</label>

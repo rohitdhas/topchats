@@ -1,9 +1,13 @@
 import { Page } from "../styles/homeStyles";
 import { Link } from "react-router-dom";
+import { toggleSidebar } from "../helpers/sidebarHandler";
 
 export default function Home() {
   return (
     <Page>
+      <div className="sidebar_bar" onClick={toggleSidebar}>
+        <i className="fab fa-facebook-messenger"></i>
+      </div>
       <section>
         <i className="far fa-paper-plane"></i>
         <p>Join a Room and start Chatting!</p>

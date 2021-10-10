@@ -9,6 +9,16 @@ export const MsgBox = styled.div`
   border-radius: 5px;
   background-color: #cee1fff8;
 
+  &::-webkit-scrollbar {
+    width: 5px;
+    margin-left: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+    outline: 1px solid slategrey;
+  }
+
   #messages {
     margin-bottom: 70px;
     .msg_card {
@@ -146,6 +156,54 @@ export const MsgBox = styled.div`
       }
     }
   }
+
+  @media (max-width: 1000px) {
+    margin: 0 auto;
+    width: 95%;
+    height: 100vh;
+
+    form {
+      width: 90%;
+      left: 0;
+      right: 0;
+      margin: 0 auto;
+
+      * {
+        margin: 0 2px;
+      }
+
+      input {
+        width: 70%;
+      }
+      button {
+        padding: 7px;
+      }
+    }
+  }
+
+  @media (max-width: 600px) {
+    #messages {
+      .msg_card {
+        max-width: 70%;
+      }
+    }
+
+    form {
+      bottom: 15px;
+    }
+
+    form > svg.fa-laugh-beam {
+      font-size: 1.4rem;
+    }
+
+    form button {
+      padding: 10px 8px;
+    }
+
+    form button > svg {
+      display: none;
+    }
+  }
 `;
 
 export const RoomNav = styled.div`
@@ -157,6 +215,13 @@ export const RoomNav = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  .sidebar_bar {
+    font-size: 1.5rem;
+    color: #1158ca;
+    display: none;
+    margin-right: 10px;
+  }
 
   .room_title {
     font-weight: bold;
@@ -187,6 +252,24 @@ export const RoomNav = styled.div`
 
     &:hover {
       background-color: #a53521;
+    }
+  }
+
+  @media (max-width: 1000px) {
+    margin: 10px auto;
+    width: 95%;
+
+    .room_title {
+      font-size: 0.8rem;
+    }
+
+    .sidebar_bar {
+      display: block;
+    }
+
+    button {
+      padding: 5px;
+      font-size: 0.7rem;
     }
   }
 `;
