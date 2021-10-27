@@ -50,20 +50,7 @@ export default function Room() {
             <div id="loading_msg">Connecting...</div>
           ) : (
             <>
-              <RoomNav>
-                <div className="sidebar_bar" onClick={toggleSidebar}>
-                  <i className="fas fa-bars"></i>
-                </div>
-                <div className="room_title">
-                  {roomData && roomData.name} -{" "}
-                  <a href={`/dashboard/${roomData._id}`}>Dashboard</a>{" "}
-                </div>
-                <button
-                  onClick={() => leaveRoom(params.roomID, username, socket)}
-                >
-                  Leave Room
-                </button>
-              </RoomNav>
+              <Nav socket={socket} roomData={roomData} />
               <MsgBox id="msg_container">
                 <section id="messages"></section>
                 <form
@@ -104,3 +91,23 @@ export default function Room() {
     </>
   );
 }
+
+const Nav = ({ roomData, socket }) => {
+  const params = useParams();
+  const { username } = useSelector((state) => state.userProfile);
+
+  return (
+    <RoomNav>
+      <div className="sidebar_bar" onClick={toggleSidebar}>
+        <i className="fas fa-bars"></i>
+      </div>
+      <div className="room_title">
+        {roomData && roomData.name} -{" "}
+        <a href={`/dashboard/${roomData._id}`}>Dashboard</a>{" "}
+      </div>
+      <button onClick={() => leaveRoom(params.roomID, username, socket)}>
+        Leave Room
+      </button>
+    </RoomNav>
+  );
+};
