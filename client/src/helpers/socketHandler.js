@@ -9,7 +9,7 @@ export function useSocket() {
 
 
     useEffect(() => {
-        let socketConnection = io("https://top-chats-messenger-2.herokuapp.com");
+        let socketConnection = io("/");
         socketConnection.on("connect", () => {
             setSocket(socketConnection);
         });
