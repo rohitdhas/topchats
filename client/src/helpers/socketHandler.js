@@ -9,7 +9,7 @@ export function useSocket() {
 
 
     useEffect(() => {
-        let socketConnection = io("http://localhost:4000");
+        let socketConnection = io("https://top-chats-messenger-2.herokuapp.com");
         socketConnection.on("connect", () => {
             setSocket(socketConnection);
         });
@@ -128,7 +128,7 @@ export function deleteMessage(messageId) {
 
     // Remove from Database
 
-    fetch(`http://localhost:4000/message?id=${messageId}`, {
+    fetch(`/api/message?id=${messageId}`, {
         method: "DELETE"
     }).then((res) => res.json())
         .then(data => console.log(data))

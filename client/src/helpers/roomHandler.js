@@ -2,7 +2,7 @@ export const createRoom = (e, roomName, userId, errorBox) => {
     e.preventDefault();
     if (!roomName) return
     else {
-        fetch('http://localhost:4000/room', {
+        fetch('/api/room', {
             credentials: 'include',
             method: "POST",
             headers: {
@@ -25,7 +25,7 @@ export const createRoom = (e, roomName, userId, errorBox) => {
 }
 
 export function getRoomData(roomId, setData) {
-    fetch(`http://localhost:4000/room?id=${roomId}`, {
+    fetch(`/api/room?id=${roomId}`, {
         credentials: 'include'
     }).then(res => res.json())
         .then(({ data, message }) => {
@@ -40,7 +40,7 @@ export function getRoomData(roomId, setData) {
 }
 
 export function deleteRoom(roomId) {
-    fetch(`http://localhost:4000/room?id=${roomId}`, {
+    fetch(`/api/room?id=${roomId}`, {
         credentials: 'include',
         method: "DELETE"
     }).then(res => res.json())
@@ -54,7 +54,7 @@ export function deleteRoom(roomId) {
 }
 
 export function addToRoom(roomName, adminId) {
-    fetch(`http://localhost:4000/room?roomName=${roomName}&admin=${adminId}`, {
+    fetch(`/api/room?roomName=${roomName}&admin=${adminId}`, {
         credentials: 'include',
         method: 'PATCH'
     }).catch(err => console.log(err))

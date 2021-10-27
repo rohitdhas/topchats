@@ -5,7 +5,7 @@ export function login(e, username, password, err) {
     const usernameValue = username.current.value;
     const passValue = password.current.value;
 
-    fetch("http://localhost:4000/login", {
+    fetch("/api/login", {
         credentials: "include",
         method: "POST",
         headers: {
@@ -45,7 +45,7 @@ export function register(e, username, password, retypedPassword, err) {
         return;
     }
 
-    fetch("http://localhost:4000/register", {
+    fetch("/api/register", {
         credentials: "include",
         method: "POST",
         headers: {
@@ -70,7 +70,7 @@ export function register(e, username, password, retypedPassword, err) {
 }
 
 export function isAuthenticated() {
-    fetch("http://localhost:4000/login", {
+    fetch("/api/login", {
         credentials: "include",
     })
         .then((res) => res.json())
@@ -80,7 +80,7 @@ export function isAuthenticated() {
 }
 
 export function getAndSetUserData(dispatcher) {
-    fetch('http://localhost:4000/user', {
+    fetch('/api/user', {
         credentials: 'include'
     })
         .then(res => res.json())
@@ -92,7 +92,7 @@ export function getAndSetUserData(dispatcher) {
 }
 
 export function logout() {
-    fetch('http://localhost:4000/logout', {
+    fetch('/api/logout', {
         method: 'DELETE',
         credentials: 'include'
     })

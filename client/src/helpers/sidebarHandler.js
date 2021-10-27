@@ -10,7 +10,7 @@ export const GetUserRooms = () => {
     const [userRooms, setUserRooms] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:4000/room/user-data', {
+        fetch('/api/room/user-data', {
             credentials: 'include'
         }).then((res) => res.json())
             .then(({ data, message }) => {
