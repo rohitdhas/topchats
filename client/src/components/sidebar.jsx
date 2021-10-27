@@ -1,9 +1,10 @@
 import { useSelector, useDispatch } from "react-redux";
-import { useLocation } from "react-router";
-import { Bar, SliderBox } from "../styles/sidebarStyles";
 import { getAndSetUserData, logout } from "../helpers/userAuth";
+import { GetUserRooms, toggleSidebar } from "../helpers/sidebarHandler";
+import { Bar } from "../styles/sidebarStyles";
+import { useLocation } from "react-router";
+import { Link } from "react-router-dom";
 import { useEffect } from "react";
-import { GetUserRooms } from "../helpers/sidebarHandler";
 
 export default function Sidebar() {
   const dispatch = useDispatch();
@@ -21,10 +22,10 @@ export default function Sidebar() {
     return (
       <Bar id="sidebar">
         <div className="site_logo">
-          <a href="/">
+          <Link onClick={toggleSidebar} to="/">
             <i className="fab fa-facebook-messenger"></i>
             <span>top Chats</span>
-          </a>
+          </Link>
         </div>
         {!username ? (
           <div className="sidebar_user_section">
@@ -40,14 +41,14 @@ export default function Sidebar() {
             {/* _________________________________________ */}
             <div className="room_list">
               <h4>Your Rooms</h4>
-              <a href="/create/room">
+              <Link onClick={toggleSidebar} to="/create/room">
                 <div className="room_card">
                   <div className="icon plus">
                     <i className="fas fa-plus"></i>
                   </div>
                   <div className="room_title">Create New</div>
                 </div>
-              </a>
+              </Link>
               {!userRooms.length
                 ? null
                 : userRooms.map((room) => {
@@ -71,27 +72,15 @@ export default function Sidebar() {
     );
 }
 
-function Slider() {
-  return (
-    <SliderBox>
-      <span className="label_text">Dark Mode -</span>
-      <label className="switch">
-        <input type="checkbox" />
-        <span className="slider round"></span>
-      </label>
-    </SliderBox>
-  );
-}
-
 function RoomCard({ roomData }) {
   return (
-    <a href={`/room/${roomData._id}`}>
+    <Link onClick={toggleSidebar} to={`/room/${roomData._id}`}>
       <div className="room_card">
         <div className="icon">
           <i className="fas fa-users"></i>
         </div>
         <div className="room_title">{roomData.name}</div>
       </div>
-    </a>
+    </Link>
   );
 }

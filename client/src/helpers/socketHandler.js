@@ -1,4 +1,38 @@
 import { guidGenerator } from "./utilityFuncs";
+import { addToRoom } from "../helpers/roomHandler";
+import { io } from "socket.io-client";
+import { useState, useEffect } from "react";
+
+export function useSocket() {
+    const [socket, setSocket] = useState();
+    const [roomData, setRoomData] = useState({});
+
+
+    useEffect(() => {
+        let socketConnection = io("http://localhost:4000");
+        socketConnection.on("connect", () => {
+            setSocket(socketConnection);
+        });
+
+        socketConnection.on("recieve_message", (messageData) => {
+            displayMessage(messageData, "recieved");
+        });
+
+        socketConnection.on("room_data", (roomData) => {
+            setRoomData(roomData);
+            addToRoom(roomData.name, roomData.admin);
+        });
+
+        socketConnection.on("Bot", (msgData) => {
+            displayMessage(
+                { message: msgData.message, sender: { username: "Bot" } },
+                "bot"
+            );
+        });
+    }, []);
+
+    return { socket, roomData }
+}
 
 export function sendMessage(e, messageData, socket) {
     e.preventDefault();

@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <Page>
       <div className="sidebar_bar" onClick={toggleSidebar}>
-        <i className="fab fa-facebook-messenger"></i>
+        <i className="fas fa-bars"></i>
       </div>
       <section>
         <i className="far fa-paper-plane"></i>

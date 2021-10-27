@@ -1,11 +1,10 @@
 import { MsgBox, RoomNav } from "../styles/roomStyles";
 import { sendMessage } from "../helpers/socketHandler";
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect } from "react";
 import { useParams, useLocation } from "react-router-dom";
 import { displayMessage, leaveRoom } from "../helpers/socketHandler";
 import { toggleEmojiKeyboard } from "../helpers/emojiHandler";
-import { addToRoom } from "../helpers/roomHandler";
-import { io } from "socket.io-client";
+import { useSocket } from "../helpers/socketHandler";
 import { useSelector } from "react-redux";
 import Login from "../Pages/login";
 import { toggleSidebar } from "../helpers/sidebarHandler";
@@ -13,33 +12,9 @@ import { toggleSidebar } from "../helpers/sidebarHandler";
 export default function Room() {
   const userInput = useRef("");
   const params = useParams();
-  const [socket, setSocket] = useState();
   const { username, userId } = useSelector((state) => state.userProfile);
-  const [roomData, setRoomData] = useState({});
+  const { socket, roomData } = useSocket();
   const location = useLocation();
-
-  useEffect(() => {
-    let socketConnection = io("http://localhost:4000");
-    socketConnection.on("connect", () => {
-      setSocket(socketConnection);
-    });
-
-    socketConnection.on("recieve_message", (messageData) => {
-      displayMessage(messageData, "recieved");
-    });
-
-    socketConnection.on("room_data", (roomData) => {
-      setRoomData(roomData);
-      addToRoom(roomData.name, roomData.admin);
-    });
-
-    socketConnection.on("Bot", (msgData) => {
-      displayMessage(
-        { message: msgData.message, sender: { username: "Bot" } },
-        "bot"
-      );
-    });
-  }, []);
 
   useEffect(() => {
     const roomId = params.roomID;
@@ -77,7 +52,7 @@ export default function Room() {
             <>
               <RoomNav>
                 <div className="sidebar_bar" onClick={toggleSidebar}>
-                  <i className="fab fa-facebook-messenger"></i>
+                  <i className="fas fa-bars"></i>
                 </div>
                 <div className="room_title">
                   {roomData && roomData.name} -{" "}
