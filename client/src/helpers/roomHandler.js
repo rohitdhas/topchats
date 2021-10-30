@@ -71,7 +71,7 @@ export function addToRoom(roomName, adminId) {
 }
 
 export async function blockUser(roomId, userId, fetchData) {
-    await fetch(`api/room/block?userId=${userId}&roomId=${roomId}`, {
+    await fetch(`/api/room/block?userId=${userId}&roomId=${roomId}`, {
         credentials: 'include',
         method: 'PATCH'
     }).catch(err => console.log(err))
@@ -79,7 +79,7 @@ export async function blockUser(roomId, userId, fetchData) {
 }
 
 export async function unblockUser(roomId, userId, fetchData) {
-    await fetch(`api/room/unblock?userId=${userId}&roomId=${roomId}`, {
+    await fetch(`/api/room/unblock?userId=${userId}&roomId=${roomId}`, {
         credentials: 'include',
         method: 'PATCH'
     }).catch(err => console.log(err))
