@@ -7,7 +7,8 @@ const Room = new mongoose.Schema({
     },
     chats: [{ type: mongoose.Types.ObjectId, ref: "Message" }],
     users: [{ type: mongoose.Types.ObjectId, ref: 'User' }],
-    admin: { type: mongoose.Types.ObjectId, ref: 'User' }
+    admin: { type: mongoose.Types.ObjectId, ref: 'User' },
+    blockedUsers: [{ type: mongoose.Types.ObjectId, ref: 'User' }]
 })
 
 module.exports = mongoose.model('Room', Room);

@@ -24,19 +24,29 @@ export const createRoom = (e, roomName, userId, errorBox) => {
     }
 }
 
-export function getRoomData(roomId, setData) {
-    fetch(`/api/room?id=${roomId}`, {
-        credentials: 'include'
-    }).then(res => res.json())
-        .then(({ data, message }) => {
-            if (data) {
-                setData(data)
-            } else {
-                console.log(message)
-            }
-        }).catch(err => {
-            console.log(err)
-        })
+export function useRoomData() {
+    const [roomData, setRoomData] = useState({})
+    const [isLoading, setIsLoading] = useState(false);
+
+    function fetchData(roomId) {
+        setIsLoading(true)
+
+        fetch(`api/room?id=${roomId}`, {
+            credentials: 'include'
+        }).then(res => res.json())
+            .then(({ data, message }) => {
+                if (data) {
+                    setRoomData(data)
+                    setIsLoading(false)
+                } else {
+                    console.log(message)
+                }
+            }).catch(err => {
+                console.log(err)
+            })
+    }
+
+    return { fetchData, roomData, isLoading }
 }
 
 export function deleteRoom(roomId) {
@@ -58,4 +68,20 @@ export function addToRoom(roomName, adminId) {
         credentials: 'include',
         method: 'PATCH'
     }).catch(err => console.log(err))
+}
+
+export async function blockUser(roomId, userId, fetchData) {
+    await fetch(`api/room/block?userId=${userId}&roomId=${roomId}`, {
+        credentials: 'include',
+        method: 'PATCH'
+    }).catch(err => console.log(err))
+    fetchData(roomId)
+}
+
+export async function unblockUser(roomId, userId, fetchData) {
+    await fetch(`api/room/unblock?userId=${userId}&roomId=${roomId}`, {
+        credentials: 'include',
+        method: 'PATCH'
+    }).catch(err => console.log(err))
+    fetchData(roomId)
 }
