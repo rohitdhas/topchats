@@ -36,12 +36,10 @@ export function useRoomData() {
         fetch(`api/room?id=${roomId}`, {
             credentials: 'include'
         }).then(res => res.json())
-            .then(({ data, message }) => {
+            .then(({ data }) => {
                 if (data) {
                     setRoomData(data)
                     setIsLoading(false)
-                } else {
-                    console.log(message)
                 }
             }).catch(err => {
                 console.log(err)
