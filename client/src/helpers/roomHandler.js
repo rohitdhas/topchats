@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 export const createRoom = (e, roomName, userId, errorBox) => {
     e.preventDefault();
     if (!roomName) return
