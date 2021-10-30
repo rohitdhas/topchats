@@ -33,7 +33,7 @@ export function useRoomData() {
     function fetchData(roomId) {
         setIsLoading(true)
 
-        fetch(`api/room?id=${roomId}`, {
+        fetch(`/api/room?id=${roomId}`, {
             credentials: 'include'
         }).then(res => {
             console.log(res)
