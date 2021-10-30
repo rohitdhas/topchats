@@ -1,6 +1,6 @@
 import { MsgBox, RoomNav } from "../styles/roomStyles";
 import { sendMessage } from "../helpers/socketHandler";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { useParams, useLocation } from "react-router-dom";
 import { displayMessage, leaveRoom } from "../helpers/socketHandler";
 import { toggleEmojiKeyboard } from "../helpers/emojiHandler";
@@ -14,10 +14,12 @@ export default function Room() {
   const params = useParams();
   const { username, userId } = useSelector((state) => state.userProfile);
   const { socket, roomData } = useSocket();
+  const [blocked, setBlocked] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
     const roomId = params.roomID;
+    setBlocked(false);
     if (socket) {
       socket.emit("leave-all");
       socket.emit("join-room", roomId, userId);
@@ -38,6 +40,11 @@ export default function Room() {
         }
       });
     }
+
+    if (roomData.blockedUsers) {
+      let bool = roomData.blockedUsers.includes(userId);
+      setBlocked(bool);
+    }
   }, [roomData]);
 
   return (
@@ -48,6 +55,10 @@ export default function Room() {
         <>
           {!roomData._id ? (
             <div id="loading_msg">Connecting...</div>
+          ) : blocked ? (
+            <div id="blocked_msg">
+              Sorry, You can't enter because, You are blocked😔
+            </div>
           ) : (
             <>
               <Nav socket={socket} roomData={roomData} />

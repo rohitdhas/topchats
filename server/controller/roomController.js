@@ -47,11 +47,12 @@ const userRoomData = async (req, res) => {
 const roomData = (req, res) => {
     const id = req.query.id;
     try {
-        Room.findOne({ _id: id }).populate('admin').populate('users').exec((err, data) => {
+        Room.findOne({ _id: id }).populate('admin').populate('users').populate('blockedUsers').exec((err, data) => {
             // Removing Password fields from users and admin objects
             let dataCopy;
             if (data) {
                 dataCopy = JSON.parse(JSON.stringify(data))
+
                 delete dataCopy.admin.password;
                 dataCopy.users.forEach((user) => {
                     delete user.password;
@@ -77,4 +78,29 @@ const addMeToRoom = async (req, res) => {
     res.end();
 }
 
-module.exports = { createNewRoom, deleteRoom, userRoomData, roomData, addMeToRoom };
+const blockUser = async (req, res) => {
+    const { userId, roomId } = req.query;
+
+    try {
+        await Room.updateOne({ _id: roomId }, { $addToSet: { blockedUsers: ObjectId(userId) } })
+        res.end();
+
+    } catch (err) {
+        res.status(500).json({ message: err.message })
+    }
+
+}
+
+const unblockUser = async (req, res) => {
+    const { userId, roomId } = req.query;
+
+    try {
+        await Room.updateOne({ _id: roomId }, { $pull: { blockedUsers: ObjectId(userId) } })
+        res.end();
+    } catch (err) {
+        res.status(500).json({ message: err.message })
+    }
+
+}
+
+module.exports = { createNewRoom, deleteRoom, userRoomData, roomData, addMeToRoom, blockUser, unblockUser };

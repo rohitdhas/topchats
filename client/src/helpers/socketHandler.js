@@ -54,49 +54,54 @@ export function displayMessage(messageData, senderClass) {
 
     const { sender, time, message, refID } = messageData;
     const msg_box = document.getElementById("messages");
+
     let card = document.createElement("div");
     card.classList.add(senderClass, 'msg_card');
 
+    switch (senderClass) {
+        case 'sent':
+            let msg_text = document.createElement("div");
+            let msg_time = document.createElement('div');
+            let delete_btn = document.createElement('span');
 
-    if (senderClass === 'sent') {
-        let msg_text = document.createElement("div");
-        let msg_time = document.createElement('div');
-        let delete_btn = document.createElement('span');
+            // Message Text
+            msg_text.className = 'msg_text'
+            msg_text.innerText = message;
+            msg_text.onclick = () => toggleDeleteButton(refID);
+            card.appendChild(msg_text);
 
-        // Message Text
-        msg_text.className = 'msg_text'
-        msg_text.innerText = message;
-        msg_text.onclick = () => toggleDeleteButton(refID);
-        card.appendChild(msg_text);
+            // Message Time
+            msg_time.className = "time";
+            msg_time.innerText = time;
+            card.appendChild(msg_time);
 
-        // Message Time
-        msg_time.className = "time";
-        msg_time.innerText = time;
-        card.appendChild(msg_time);
+            // Delete Button
+            delete_btn.innerHTML = `<i class="far fa-trash-alt"></i> Delete`
 
-        // Delete Button
-        delete_btn.innerHTML = `<i class="far fa-trash-alt"></i> Delete`
+            delete_btn.className = "delete_icon";
+            delete_btn.onclick = () => deleteMessage(refID);
+            card.appendChild(delete_btn);
 
-        delete_btn.className = "delete_icon";
-        delete_btn.onclick = () => deleteMessage(refID);
-        card.appendChild(delete_btn);
+            card.dataset.id = `msg_card-${refID}`;
+            break;
 
-        card.dataset.id = `msg_card-${refID}`;
+        case 'recieved':
+            card.innerHTML = `
+            <div class="msg_text">
+            <span class="sent_by">${sender.username}</span> 
+            - ${message}
+            </div>
+            <div class="time">${time}</div>
+            `
+            break;
 
-    } else if (senderClass === 'bot') {
-        card.innerHTML = `
-        <div class="msg_text">
-        <span class="sent_by">${sender.username}</span> - ${message}
-        </div>
-        `
-    } else {
-        card.innerHTML = `
-        <div class="msg_text">
-        <span class="sent_by">${sender.username}</span> 
-        - ${message}
-        </div>
-        <div class="time">${time}</div>
-        `
+        default:
+            card.innerHTML = `
+            <div class="msg_text">
+            <span class="sent_by">${sender.username}</span> - ${message}
+            </div>
+            `
+            break;
     }
 
     if (msg_box) {

@@ -68,18 +68,25 @@ export const Dashboard = styled.div`
       margin: 10px 0;
       border-radius: 5px;
       display: flex;
-      justify-content: flex-start;
+      justify-content: space-between;
       align-items: center;
-
       background-color: #769ad4f8;
+
+      button {
+        padding: 10px;
+        border-radius: 5px;
+        border: none;
+        font-weight: bold;
+        color: white;
+        background-color: tomato;
+
+        &:hover {
+          background-color: #be3d26;
+        }
+      }
 
       svg {
         margin-right: 10px;
-      }
-
-      &:hover {
-        background-color: #4b70aaf8;
-        cursor: pointer;
       }
     }
   }

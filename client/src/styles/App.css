@@ -11,11 +11,25 @@
   font-family: "Spartan", sans-serif;
 }
 
-#loading_msg {
+#loading_msg,
+#blocked_msg {
   position: absolute;
   top: 50%;
-  left: 50%;
+  left: 55%;
   transform: translate(-50%, -50%);
   font-weight: bold;
-  color: var(--primary-color);
+}
+
+#loading_msg {
+  padding: 20px;
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: 5px;
+}
+
+#blocked_msg {
+  padding: 20px;
+  background-color: tomato;
+  color: white;
+  border-radius: 5px;
 }
