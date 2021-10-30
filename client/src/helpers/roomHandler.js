@@ -35,7 +35,10 @@ export function useRoomData() {
 
         fetch(`api/room?id=${roomId}`, {
             credentials: 'include'
-        }).then(res => res.json())
+        }).then(res => {
+            console.log(res)
+            res.json()
+        })
             .then(({ data }) => {
                 if (data) {
                     setRoomData(data)
